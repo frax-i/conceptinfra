@@ -1,5 +1,5 @@
 /* ============================================
-   CONCEPTINFRA CROWN - Premium Website Styles
+   CONCEPTINFRA MASHRIQ HEIGHTS - Premium Website Styles
    ============================================ */
 
 /* CSS Custom Properties */
@@ -312,17 +312,17 @@ ul {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: 
-        linear-gradient(135deg, 
-            rgba(10, 10, 10, 0.3) 0%, 
-            rgba(26, 26, 46, 0.5) 30%, 
+    background:
+        linear-gradient(135deg,
+            rgba(10, 10, 10, 0.3) 0%,
+            rgba(26, 26, 46, 0.5) 30%,
             rgba(15, 52, 96, 0.4) 60%,
             rgba(10, 10, 10, 0.6) 100%),
-        linear-gradient(180deg, 
-            transparent 0%, 
+        linear-gradient(180deg,
+            transparent 0%,
             rgba(10, 10, 10, 0.4) 100%),
-        radial-gradient(ellipse at 70% 40%, 
-            rgba(195, 155, 100, 0.15) 0%, 
+        radial-gradient(ellipse at 70% 40%,
+            rgba(195, 155, 100, 0.15) 0%,
             transparent 60%);
     background-color: #0d1b2a;
     animation: heroBgShift 20s ease-in-out infinite alternate;
@@ -338,7 +338,7 @@ ul {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: 
+    background:
         repeating-linear-gradient(
             0deg,
             transparent,
@@ -541,17 +541,76 @@ ul {
 }
 
 /* ============================================
-   RESORT LIVING SECTION
+   VIDEO SECTION
    ============================================ */
-.resort-section {
+.video-section {
     padding: 120px 0;
     background: var(--dark);
+    text-align: center;
+}
+
+.video-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    aspect-ratio: 16/9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(195,155,100,0.2);
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.video-placeholder:hover {
+    background: linear-gradient(135deg, #1a1a2e 0%, #1a2a4e 50%, #0f4a70 100%);
+}
+
+.play-btn {
+    width: 80px;
+    height: 80px;
+    color: var(--gold);
+    transition: var(--transition);
+}
+
+.play-btn svg {
+    width: 100%;
+    height: 100%;
+}
+
+.video-placeholder:hover .play-btn {
+    transform: scale(1.1);
+    color: var(--gold-light);
+}
+
+.video-placeholder p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ============================================
+   ABOUT US SECTION
+   ============================================ */
+.about-section {
+    padding: 120px 0;
+    background: var(--black);
     text-align: center;
     position: relative;
     overflow: hidden;
 }
 
-.resort-section::before {
+.about-section::before {
     content: '';
     position: absolute;
     top: 0;
@@ -562,16 +621,24 @@ ul {
     background: linear-gradient(to bottom, transparent, var(--gold));
 }
 
-.resort-content {
+.about-content {
     max-width: 900px;
     margin: 0 auto;
 }
 
-.resort-text {
+.about-text {
     margin-bottom: 60px;
+    text-align: left;
 }
 
-.resort-lead {
+.about-text p {
+    color: var(--gray);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.about-text p.about-lead {
     font-family: var(--font-accent);
     font-size: 1.4rem;
     color: var(--light-gray);
@@ -579,19 +646,17 @@ ul {
     margin-bottom: 20px;
 }
 
-.resort-lead strong {
+.about-text p strong {
+    color: var(--gold-light);
+}
+
+.about-text p.about-lead strong {
     color: var(--gold);
 }
 
-.resort-text p:last-child {
-    color: var(--gray);
-    font-size: 1rem;
-    line-height: 1.8;
-}
-
-.resort-stats {
+.about-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
     padding-top: 60px;
     border-top: 1px solid rgba(195,155,100,0.2);
@@ -615,6 +680,77 @@ ul {
     color: var(--gray);
     letter-spacing: 2px;
     text-transform: uppercase;
+}
+
+/* ============================================
+   FOUNDERS SECTION
+   ============================================ */
+.founders-section {
+    padding: 120px 0;
+    background: var(--dark);
+    text-align: center;
+}
+
+.founders-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 700px;
+    margin: 50px auto 0;
+}
+
+.founder-card {
+    background: var(--dark-gray);
+    border: 1px solid rgba(195,155,100,0.15);
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.founder-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(195,155,100,0.4);
+    box-shadow: var(--shadow-gold);
+}
+
+.founder-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: rgba(195,155,100,0.1);
+    border: 2px solid rgba(195,155,100,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.founder-placeholder {
+    width: 60px;
+    height: 60px;
+    color: var(--gold);
+}
+
+.founder-placeholder svg {
+    width: 100%;
+    height: 100%;
+}
+
+.founder-name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+
+.founder-role {
+    font-size: 0.85rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 /* ============================================
@@ -701,11 +837,131 @@ ul {
 }
 
 /* ============================================
+   WHY CONCEPT INFRA SECTION
+   ============================================ */
+.why-section {
+    padding: 120px 0;
+    background: linear-gradient(180deg, var(--dark) 0%, var(--black) 100%);
+    text-align: center;
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.why-card {
+    background: rgba(30, 30, 30, 0.6);
+    border: 1px solid rgba(195,155,100,0.1);
+    border-radius: 16px;
+    padding: 45px 30px;
+    text-align: center;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.why-card:hover {
+    border-color: rgba(195,155,100,0.3);
+    transform: translateY(-5px);
+    background: rgba(30, 30, 30, 0.9);
+}
+
+.why-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 24px;
+    color: var(--gold);
+}
+
+.why-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.why-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 16px;
+}
+
+.why-card p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.7;
+}
+
+/* ============================================
+   VISION & MISSION SECTION
+   ============================================ */
+.vision-section {
+    padding: 120px 0;
+    background: var(--dark);
+    text-align: center;
+}
+
+.vision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.vision-card {
+    background: var(--dark-gray);
+    border: 1px solid rgba(195,155,100,0.15);
+    border-radius: 16px;
+    padding: 50px 40px;
+    text-align: left;
+    transition: var(--transition);
+}
+
+.vision-card:hover {
+    border-color: rgba(195,155,100,0.3);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-gold);
+}
+
+.vision-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+    color: var(--gold);
+}
+
+.vision-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.vision-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 20px;
+}
+
+.vision-card p {
+    font-size: 0.95rem;
+    color: var(--gray);
+    line-height: 1.8;
+}
+
+.vision-extra {
+    margin-top: 16px;
+    font-style: italic;
+    color: var(--gold-light) !important;
+}
+
+/* ============================================
    CONCEPT SECTION
    ============================================ */
 .concept-section {
     padding: 120px 0;
-    background: linear-gradient(180deg, var(--dark) 0%, var(--black) 100%);
+    background: linear-gradient(180deg, var(--black) 0%, var(--dark) 100%);
     text-align: center;
 }
 
@@ -807,95 +1063,36 @@ ul {
     font-weight: 500;
     color: var(--light-gray);
     letter-spacing: 0.5px;
+    text-align: center;
 }
 
 /* ============================================
-   RESIDENCES SECTION
+   BROCHURE SECTION
    ============================================ */
-.residences-section {
+.brochure-section {
     padding: 120px 0;
     background: var(--black);
     text-align: center;
 }
 
-.residences-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.residence-card {
-    border-radius: 16px;
-    overflow: hidden;
-    transition: var(--transition);
-    border: 1px solid rgba(195,155,100,0.1);
-}
-
-.residence-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-gold);
-    border-color: rgba(195,155,100,0.3);
-}
-
-.residence-featured {
-    grid-column: 1 / -1;
-}
-
-.residence-image {
-    height: 280px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.residence-featured .residence-image {
-    height: 400px;
-}
-
-.residence-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.residence-hex {
-    width: 120px;
-    height: 120px;
-    animation: hexRotate 20s linear infinite;
-}
-
-.residence-hex svg {
-    width: 100%;
-    height: 100%;
-}
-
-@keyframes hexRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.residence-info {
-    padding: 30px;
-    text-align: left;
+.brochure-form-wrap {
+    max-width: 500px;
+    margin: 0 auto;
     background: var(--dark-gray);
+    border: 1px solid rgba(195,155,100,0.2);
+    border-radius: 16px;
+    padding: 40px;
 }
 
-.residence-info h3 {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 12px;
+.brochure-form .form-group {
+    margin-bottom: 16px;
 }
 
-.residence-info p {
+.brochure-form .btn {
+    margin-top: 8px;
+    border-radius: 8px;
+    padding: 16px;
     font-size: 0.9rem;
-    color: var(--gray);
-    line-height: 1.7;
 }
 
 /* ============================================
@@ -1003,34 +1200,10 @@ ul {
     align-items: center;
 }
 
-.enquiry-content .section-title {
-    text-align: left;
-    margin-bottom: 24px;
-}
-
-.enquiry-content p {
-    color: var(--gray);
-    line-height: 1.8;
-    margin-bottom: 30px;
-}
-
-.enquiry-highlights {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.enquiry-highlight {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    font-size: 0.95rem;
-    color: var(--light-gray);
-}
-
-.highlight-icon {
-    color: var(--gold);
-    font-size: 1rem;
+.enquiry-centered {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .enquiry-form-wrap {
@@ -1046,12 +1219,14 @@ ul {
     font-weight: 700;
     color: var(--gold);
     margin-bottom: 8px;
+    text-align: center;
 }
 
 .enquiry-form > p {
     font-size: 0.9rem;
     color: var(--gray);
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .form-group {
@@ -1108,73 +1283,6 @@ ul {
     border-radius: 8px;
     padding: 16px;
     font-size: 0.9rem;
-}
-
-/* ============================================
-   PARTNERS SECTION
-   ============================================ */
-.partners-section {
-    padding: 100px 0;
-    background: var(--dark);
-    text-align: center;
-    overflow: hidden;
-}
-
-.partners-marquee {
-    margin-top: 50px;
-    overflow: hidden;
-    position: relative;
-}
-
-.partners-marquee::before,
-.partners-marquee::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100px;
-    z-index: 2;
-}
-
-.partners-marquee::before {
-    left: 0;
-    background: linear-gradient(90deg, var(--dark), transparent);
-}
-
-.partners-marquee::after {
-    right: 0;
-    background: linear-gradient(-90deg, var(--dark), transparent);
-}
-
-.marquee-track {
-    display: flex;
-    gap: 60px;
-    animation: marquee 30s linear infinite;
-    width: max-content;
-}
-
-.partner-logo {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    white-space: nowrap;
-    padding: 20px 30px;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 8px;
-    transition: var(--transition);
-}
-
-.partner-logo:hover {
-    color: var(--gold);
-    border-color: rgba(195,155,100,0.3);
-}
-
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
 }
 
 /* ============================================
@@ -1432,6 +1540,10 @@ ul {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .amenities-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -1442,6 +1554,10 @@ ul {
 
     .location-map {
         min-height: 350px;
+    }
+
+    .vision-grid {
+        grid-template-columns: 1fr;
     }
 
     .footer-grid {
@@ -1496,12 +1612,21 @@ ul {
         width: 260px;
     }
 
-    .resort-stats {
+    .about-stats {
         grid-template-columns: 1fr;
         gap: 30px;
     }
 
+    .founders-grid {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+    }
+
     .consultants-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .why-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1513,25 +1638,9 @@ ul {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .residences-grid {
-        grid-template-columns: 1fr;
-    }
-
     .enquiry-grid {
         grid-template-columns: 1fr;
         gap: 40px;
-    }
-
-    .enquiry-content .section-title {
-        text-align: center;
-    }
-
-    .enquiry-content p {
-        text-align: center;
-    }
-
-    .enquiry-highlights {
-        align-items: center;
     }
 
     .footer-grid {
@@ -1574,16 +1683,16 @@ ul {
         grid-template-columns: 1fr;
     }
 
-    .residence-image {
-        height: 200px;
-    }
-
-    .residence-featured .residence-image {
-        height: 280px;
-    }
-
     .enquiry-form-wrap {
         padding: 24px;
+    }
+
+    .brochure-form-wrap {
+        padding: 24px;
+    }
+
+    .vision-card {
+        padding: 30px 24px;
     }
 
     .section-title {
