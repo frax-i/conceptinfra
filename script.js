@@ -1,5 +1,5 @@
 /* ============================================
-   CONCEPTINFRA CROWN - JavaScript
+   CONCEPTINFRA MASHRIQ HEIGHTS - JavaScript
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add reveal class to elements
     const revealElements = document.querySelectorAll(
-        '.consultant-card, .concept-card, .amenity-item, .residence-card, .location-feature, .stat-item'
+        '.consultant-card, .concept-card, .amenity-item, .location-feature, .stat-item, .founder-card, .why-card, .vision-card'
     );
 
     revealElements.forEach((el, index) => {
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(update);
     }
 
-    // ---- Form handling ----
+    // ---- Enquiry Form handling ----
     const enquiryForm = document.getElementById('enquiryForm');
 
     enquiryForm.addEventListener('submit', function(e) {
@@ -227,6 +227,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000);
         }, 1500);
     });
+
+    // ---- Brochure Form handling ----
+    const brochureForm = document.getElementById('brochureForm');
+
+    if (brochureForm) {
+        brochureForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+
+            if (!data.fullname || !data.email || !data.phone) {
+                showNotification('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = 'Processing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.textContent = 'Thank You!';
+                btn.style.background = '#2d8a4e';
+                showNotification('Thank you! The brochure download link will be sent to your email shortly.', 'success');
+
+                setTimeout(() => {
+                    this.reset();
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 3000);
+            }, 1500);
+        });
+    }
 
     function showNotification(message, type) {
         const existing = document.querySelector('.notification');
