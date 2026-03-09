@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects Gallery | ConceptInfra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .gallery-hero {
+            padding: 140px 0 60px;
+            background: var(--dark);
+            text-align: center;
+        }
+        .gallery-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            transition: var(--transition-fast);
+        }
+        .gallery-back:hover { color: var(--gold-light); }
+        .gallery-back svg { width: 18px; height: 18px; }
+        .gallery-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .gallery-tab {
+            padding: 10px 24px;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid rgba(195,155,100,0.3);
+            background: transparent;
+            color: var(--gray);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .gallery-tab:hover, .gallery-tab.active {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding-bottom: 80px;
+        }
+        .gallery-item {
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(195,155,100,0.15);
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-gold);
+            border-color: rgba(195,155,100,0.4);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 50%);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+        .gallery-item-overlay span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        .lightbox-content {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+        .lightbox-img {
+            width: 100%;
+            max-height: 75vh;
+            border-radius: 12px;
+            object-fit: contain;
+            margin-bottom: 16px;
+        }
+        .lightbox-caption {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--gold-light);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-hero { padding: 120px 0 40px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header scrolled" id="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-text">ConceptInfra</span>
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">About Us</a></li>
+                    <li><a href="index.html#amenities" class="nav-link">Amenities</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="index.html#enquiry" class="btn btn-header">Enquire Now</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="gallery-hero">
+        <div class="container">
+            <a href="index.html" class="gallery-back">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Home
+            </a>
+            <h1 class="section-title">Our Projects Gallery</h1>
+            <p class="section-desc">Explore our portfolio of residential homes, group housing projects, and upcoming developments.</p>
+            <div class="gallery-tabs">
+                <button class="gallery-tab active" data-filter="all">All Projects</button>
+                <button class="gallery-tab" data-filter="residential">Residential Homes</button>
+                <button class="gallery-tab" data-filter="group">Group Housing</button>
+                <button class="gallery-tab" data-filter="upcoming">Upcoming</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item" data-category="residential" data-title="Modern Villa - Exterior View">
+                    <img src="images/gallery/villa-exterior.jpg" alt="Modern Villa - Exterior View">
+                    <div class="gallery-item-overlay"><span>Modern Villa - Exterior View</span></div>
+                </div>
+                <div class="gallery-item" data-category="residential" data-title="Luxury Residence - Front Elevation">
+                    <img src="images/gallery/luxury-front.jpg" alt="Luxury Residence - Front Elevation">
+                    <div class="gallery-item-overlay"><span>Luxury Residence - Front Elevation</span></div>
+                </div>
+                <div class="gallery-item" data-category="group" data-title="Mashriq Heights - Building Progress">
+                    <img src="images/gallery/building-progress.jpg" alt="Mashriq Heights - Building Progress">
+                    <div class="gallery-item-overlay"><span>Mashriq Heights - Building Progress</span></div>
+                </div>
+                <div class="gallery-item" data-category="residential" data-title="Contemporary Home - Interior">
+                    <img src="images/gallery/interior-living.jpg" alt="Contemporary Home - Interior">
+                    <div class="gallery-item-overlay"><span>Contemporary Home - Interior</span></div>
+                </div>
+                <div class="gallery-item" data-category="group" data-title="Site Foundation Work">
+                    <img src="images/gallery/foundation.jpg" alt="Site Foundation Work">
+                    <div class="gallery-item-overlay"><span>Site Foundation Work</span></div>
+                </div>
+                <div class="gallery-item" data-category="residential" data-title="Arabian Style Villa">
+                    <img src="images/gallery/arabian-villa.jpg" alt="Arabian Style Villa">
+                    <div class="gallery-item-overlay"><span>Arabian Style Villa</span></div>
+                </div>
+                <div class="gallery-item" data-category="group" data-title="RCC Structure Construction">
+                    <img src="images/gallery/rcc-structure.jpg" alt="RCC Structure Construction">
+                    <div class="gallery-item-overlay"><span>RCC Structure Construction</span></div>
+                </div>
+                <div class="gallery-item" data-category="upcoming" data-title="Upcoming Commercial Complex - Render">
+                    <img src="images/gallery/commercial.jpg" alt="Upcoming Commercial Complex - Render">
+                    <div class="gallery-item-overlay"><span>Upcoming Commercial Complex - Render</span></div>
+                </div>
+                <div class="gallery-item" data-category="residential" data-title="Premium Interior - Living Room">
+                    <img src="images/gallery/interior-living.jpg" alt="Premium Interior - Living Room">
+                    <div class="gallery-item-overlay"><span>Premium Interior - Living Room</span></div>
+                </div>
+                <div class="gallery-item" data-category="group" data-title="Mashriq Heights - Aerial View">
+                    <img src="images/gallery/aerial-view.jpg" alt="Mashriq Heights - Aerial View">
+                    <div class="gallery-item-overlay"><span>Mashriq Heights - Aerial View</span></div>
+                </div>
+                <div class="gallery-item" data-category="upcoming" data-title="Upcoming Township - Master Plan">
+                    <img src="images/gallery/masterplan.jpg" alt="Upcoming Township - Master Plan">
+                    <div class="gallery-item-overlay"><span>Upcoming Township - Master Plan</span></div>
+                </div>
+                <div class="gallery-item" data-category="residential" data-title="Landscaped Garden - Completed Project">
+                    <img src="images/gallery/garden.jpg" alt="Landscaped Garden - Completed Project">
+                    <div class="gallery-item-overlay"><span>Landscaped Garden - Completed Project</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+            <p class="lightbox-caption" id="lightboxCaption"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>Copyright &copy; 2026 <a href="index.html">ConceptInfra</a>. All Rights Reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('open');
+            document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // Auto-filter from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterParam = urlParams.get('filter');
+
+        // Gallery filter
+        const tabs = document.querySelectorAll('.gallery-tab');
+        const items = document.querySelectorAll('.gallery-item');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const filter = tab.dataset.filter;
+                items.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Apply URL filter on load
+        if (filterParam) {
+            const targetTab = document.querySelector(`.gallery-tab[data-filter="${filterParam}"]`);
+            if (targetTab) targetTab.click();
+        }
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                lightboxImg.src = img ? img.src : '';
+                lightboxImg.alt = item.dataset.title;
+                lightboxCaption.textContent = item.dataset.title;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>

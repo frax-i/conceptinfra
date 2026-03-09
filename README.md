@@ -18,6 +18,7 @@ Mashriq Heights is a thoughtfully crafted residential project developed by Conce
 ```
 conceptinfra/
 ├── index.html    # Main HTML file with all sections
+├── gallery.html  # Project gallery with filterable photos and lightbox
 ├── styles.css    # Complete stylesheet with responsive design
 ├── script.js     # Interactive features and animations
 └── README.md     # This file
@@ -26,9 +27,9 @@ conceptinfra/
 ## Website Sections
 
 1. **Hero** - Full-screen landing with animated tagline and CTA buttons
-2. **Walkthrough Video** - Video placeholder section for project walkthrough
+2. **Walkthrough Tour** - Video placeholder section for project walkthrough
 3. **About Us** - Company background, legacy, and quality promise
-4. **Leadership** - Founder (Dr. M Y Khan) and Principal Developer (Shariq Khan)
+4. **Leadership** - Founder (Dr. M. Y. Khan) and Principal Developer (Shariq Khan)
 5. **Expert Consultants** - Architect, Structure Consultant, Interior & Exterior Designer
 6. **Why Concept Infra** - Six key value propositions
 7. **Vision & Mission** - Company mission and vision statements
@@ -54,6 +55,10 @@ conceptinfra/
 - Floating "Enquire Now" CTA button
 - Back-to-top button
 - Form validation with notification system
+- Project gallery with category filtering and lightbox viewer
+- Justified text alignment throughout
+- Background imagery on amenity and feature cards
+- Mobile-optimized compact layout with reduced scrolling
 
 ## Getting Started
 
