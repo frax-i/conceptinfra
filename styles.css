@@ -66,6 +66,18 @@ ul {
     list-style: none;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .container {
     max-width: 1280px;
     margin: 0 auto;
@@ -563,9 +575,6 @@ ul {
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid rgba(195,155,100,0.2);
-}
-
-.video-wrapper {
     position: relative;
 }
 
@@ -1787,7 +1796,8 @@ ul {
     }
 
     .hero-cta .btn {
-        width: 260px;
+        width: 100%;
+        max-width: 260px;
     }
 
     .about-text {
@@ -2023,5 +2033,21 @@ ul {
     .why-grid,
     .concept-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .hero-canvas {
+        transition: none;
     }
 }
