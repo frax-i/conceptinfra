@@ -200,86 +200,43 @@ document.addEventListener('DOMContentLoaded', () => {
         return /^[\d\s\-+()]{7,15}$/.test(phone);
     }
 
-    // ---- Enquiry Form handling ----
-    const enquiryForm = document.getElementById('enquiryForm');
-
-    if (enquiryForm) {
-    enquiryForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-        const data = {};
-        formData.forEach((value, key) => data[key] = value);
-
-        // Validate
-        if (!data.name || !data.email || !data.phone) {
+    // Shared form validation - returns true if valid, false if error shown
+    function validateFormFields(data, nameField) {
+        if (!data[nameField] || !data.email || !data.phone) {
             showNotification('Please fill in all required fields.', 'error');
-            return;
+            return false;
         }
         if (!isValidEmail(data.email)) {
             showNotification('Please enter a valid email address.', 'error');
-            return;
+            return false;
         }
         if (!isValidPhone(data.phone)) {
             showNotification('Please enter a valid phone number.', 'error');
-            return;
+            return false;
         }
+        return true;
+    }
 
-        // Simulate submission
-        const btn = this.querySelector('button[type="submit"]');
-        const originalText = btn.textContent;
-        btn.textContent = 'Sending...';
-        btn.disabled = true;
-
-        setTimeout(() => {
-            btn.textContent = 'Thank You!';
-            btn.style.background = '#2d8a4e';
-            showNotification('Thank you! Our team will contact you shortly.', 'success');
-
-            setTimeout(() => {
-                this.reset();
-                btn.textContent = originalText;
-                btn.style.background = '';
-                btn.disabled = false;
-            }, 3000);
-        }, 1500);
-    });
-    } // end if (enquiryForm)
-
-    // ---- Brochure Form handling ----
-    const brochureForm = document.getElementById('brochureForm');
-
-    if (brochureForm) {
-        brochureForm.addEventListener('submit', function(e) {
+    // Shared form submit handler
+    function handleFormSubmit(form, nameField, successMsg, btnLoadingText) {
+        if (!form) return;
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-
             const formData = new FormData(this);
             const data = {};
             formData.forEach((value, key) => data[key] = value);
 
-            if (!data.fullname || !data.email || !data.phone) {
-                showNotification('Please fill in all required fields.', 'error');
-                return;
-            }
-            if (!isValidEmail(data.email)) {
-                showNotification('Please enter a valid email address.', 'error');
-                return;
-            }
-            if (!isValidPhone(data.phone)) {
-                showNotification('Please enter a valid phone number.', 'error');
-                return;
-            }
+            if (!validateFormFields(data, nameField)) return;
 
             const btn = this.querySelector('button[type="submit"]');
             const originalText = btn.textContent;
-            btn.textContent = 'Processing...';
+            btn.textContent = btnLoadingText;
             btn.disabled = true;
 
             setTimeout(() => {
                 btn.textContent = 'Thank You!';
                 btn.style.background = '#2d8a4e';
-                showNotification('Thank you! The brochure download link will be sent to your email shortly.', 'success');
-
+                showNotification(successMsg, 'success');
                 setTimeout(() => {
                     this.reset();
                     btn.textContent = originalText;
@@ -289,6 +246,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1500);
         });
     }
+
+    // ---- Enquiry Form ----
+    handleFormSubmit(
+        document.getElementById('enquiryForm'),
+        'name',
+        'Thank you! Our team will contact you shortly.',
+        'Sending...'
+    );
+
+    // ---- Brochure Form ----
+    handleFormSubmit(
+        document.getElementById('brochureForm'),
+        'fullname',
+        'Thank you! The brochure download link will be sent to your email shortly.',
+        'Processing...'
+    );
 
     function showNotification(message, type) {
         const existing = document.querySelector('.notification');
@@ -384,6 +357,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Preload next clip
         standby.src = clips[1];
         standby.load();
+
+        // Error handling - skip to next clip on load failure
+        vidA.addEventListener('error', () => { nextClip(); });
+        vidB.addEventListener('error', () => { nextClip(); });
 
         function startClipTimer() {
             clearTimeout(clipTimer);
