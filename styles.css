@@ -392,23 +392,23 @@ ul {
 .hero-title-line {
     display: block;
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-size: clamp(1.5rem, 6vw, 5rem);
     font-weight: 700;
     color: var(--white);
-    letter-spacing: 6px;
+    letter-spacing: clamp(2px, 0.8vw, 6px);
     line-height: 1.1;
 }
 
 .hero-title-accent {
     display: block;
     font-family: var(--font-display);
-    font-size: clamp(3rem, 8vw, 7rem);
+    font-size: clamp(2rem, 8vw, 7rem);
     font-weight: 800;
     background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: 8px;
+    letter-spacing: clamp(2px, 1vw, 8px);
     line-height: 1.2;
 }
 
@@ -2023,11 +2023,13 @@ ul {
     }
 
     .hero-title-line {
-        font-size: 2rem;
+        font-size: 1.3rem;
+        letter-spacing: 1px;
     }
 
     .hero-title-accent {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
     }
 
     .why-grid,

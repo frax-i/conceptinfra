@@ -135,6 +135,8 @@
             color: var(--gold-light);
         }
 
+        .gallery-hidden { display: none !important; }
+
         @media (max-width: 768px) {
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -194,51 +196,51 @@
         <div class="container">
             <div class="gallery-grid" id="galleryGrid">
                 <div class="gallery-item" data-category="residential" data-title="Modern Villa - Exterior View">
-                    <img src="images/gallery/villa-exterior.jpg" alt="Modern Villa - Exterior View">
+                    <img loading="lazy" src="images/gallery/villa-exterior.jpg" alt="Modern Villa - Exterior View">
                     <div class="gallery-item-overlay"><span>Modern Villa - Exterior View</span></div>
                 </div>
                 <div class="gallery-item" data-category="residential" data-title="Luxury Residence - Front Elevation">
-                    <img src="images/gallery/luxury-front.jpg" alt="Luxury Residence - Front Elevation">
+                    <img loading="lazy" src="images/gallery/luxury-front.jpg" alt="Luxury Residence - Front Elevation">
                     <div class="gallery-item-overlay"><span>Luxury Residence - Front Elevation</span></div>
                 </div>
                 <div class="gallery-item" data-category="group" data-title="Mashriq Heights - Building Progress">
-                    <img src="images/gallery/building-progress.jpg" alt="Mashriq Heights - Building Progress">
+                    <img loading="lazy" src="images/gallery/building-progress.jpg" alt="Mashriq Heights - Building Progress">
                     <div class="gallery-item-overlay"><span>Mashriq Heights - Building Progress</span></div>
                 </div>
                 <div class="gallery-item" data-category="residential" data-title="Contemporary Home - Interior">
-                    <img src="images/gallery/interior-living.jpg" alt="Contemporary Home - Interior">
+                    <img loading="lazy" src="images/gallery/interior-living.jpg" alt="Contemporary Home - Interior">
                     <div class="gallery-item-overlay"><span>Contemporary Home - Interior</span></div>
                 </div>
                 <div class="gallery-item" data-category="group" data-title="Site Foundation Work">
-                    <img src="images/gallery/foundation.jpg" alt="Site Foundation Work">
+                    <img loading="lazy" src="images/gallery/foundation.jpg" alt="Site Foundation Work">
                     <div class="gallery-item-overlay"><span>Site Foundation Work</span></div>
                 </div>
                 <div class="gallery-item" data-category="residential" data-title="Arabian Style Villa">
-                    <img src="images/gallery/arabian-villa.jpg" alt="Arabian Style Villa">
+                    <img loading="lazy" src="images/gallery/arabian-villa.jpg" alt="Arabian Style Villa">
                     <div class="gallery-item-overlay"><span>Arabian Style Villa</span></div>
                 </div>
                 <div class="gallery-item" data-category="group" data-title="RCC Structure Construction">
-                    <img src="images/gallery/rcc-structure.jpg" alt="RCC Structure Construction">
+                    <img loading="lazy" src="images/gallery/rcc-structure.jpg" alt="RCC Structure Construction">
                     <div class="gallery-item-overlay"><span>RCC Structure Construction</span></div>
                 </div>
                 <div class="gallery-item" data-category="upcoming" data-title="Upcoming Commercial Complex - Render">
-                    <img src="images/gallery/commercial.jpg" alt="Upcoming Commercial Complex - Render">
+                    <img loading="lazy" src="images/gallery/commercial.jpg" alt="Upcoming Commercial Complex - Render">
                     <div class="gallery-item-overlay"><span>Upcoming Commercial Complex - Render</span></div>
                 </div>
                 <div class="gallery-item" data-category="residential" data-title="Premium Interior - Living Room">
-                    <img src="images/gallery/interior-living.jpg" alt="Premium Interior - Living Room">
+                    <img loading="lazy" src="images/gallery/interior-living.jpg" alt="Premium Interior - Living Room">
                     <div class="gallery-item-overlay"><span>Premium Interior - Living Room</span></div>
                 </div>
                 <div class="gallery-item" data-category="group" data-title="Mashriq Heights - Aerial View">
-                    <img src="images/gallery/aerial-view.jpg" alt="Mashriq Heights - Aerial View">
+                    <img loading="lazy" src="images/gallery/aerial-view.jpg" alt="Mashriq Heights - Aerial View">
                     <div class="gallery-item-overlay"><span>Mashriq Heights - Aerial View</span></div>
                 </div>
                 <div class="gallery-item" data-category="upcoming" data-title="Upcoming Township - Master Plan">
-                    <img src="images/gallery/masterplan.jpg" alt="Upcoming Township - Master Plan">
+                    <img loading="lazy" src="images/gallery/masterplan.jpg" alt="Upcoming Township - Master Plan">
                     <div class="gallery-item-overlay"><span>Upcoming Township - Master Plan</span></div>
                 </div>
                 <div class="gallery-item" data-category="residential" data-title="Landscaped Garden - Completed Project">
-                    <img src="images/gallery/garden.jpg" alt="Landscaped Garden - Completed Project">
+                    <img loading="lazy" src="images/gallery/garden.jpg" alt="Landscaped Garden - Completed Project">
                     <div class="gallery-item-overlay"><span>Landscaped Garden - Completed Project</span></div>
                 </div>
             </div>
@@ -260,9 +262,9 @@
             <div class="footer-bottom">
                 <p>Copyright &copy; 2026 <a href="index.html">ConceptInfra</a>. All Rights Reserved.</p>
                 <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
                     <span>|</span>
-                    <a href="#">Terms &amp; Conditions</a>
+                    <a href="terms.html">Terms &amp; Conditions</a>
                 </div>
             </div>
         </div>
@@ -278,9 +280,10 @@
             document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
         });
 
-        // Auto-filter from URL params
+        // Auto-filter from URL params (sanitized)
         const urlParams = new URLSearchParams(window.location.search);
         const filterParam = urlParams.get('filter');
+        const allowedFilters = ['all', 'residential', 'group', 'upcoming'];
 
         // Gallery filter
         const tabs = document.querySelectorAll('.gallery-tab');
@@ -292,17 +295,17 @@
                 const filter = tab.dataset.filter;
                 items.forEach(item => {
                     if (filter === 'all' || item.dataset.category === filter) {
-                        item.style.display = '';
+                        item.classList.remove('gallery-hidden');
                     } else {
-                        item.style.display = 'none';
+                        item.classList.add('gallery-hidden');
                     }
                 });
             });
         });
 
-        // Apply URL filter on load
-        if (filterParam) {
-            const targetTab = document.querySelector(`.gallery-tab[data-filter="${filterParam}"]`);
+        // Apply URL filter on load (sanitized - only allow known values)
+        if (filterParam && allowedFilters.includes(filterParam)) {
+            const targetTab = document.querySelector('.gallery-tab[data-filter="' + filterParam + '"]');
             if (targetTab) targetTab.click();
         }
 
