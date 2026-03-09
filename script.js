@@ -192,9 +192,18 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(update);
     }
 
+    // ---- Helpers ----
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    function isValidPhone(phone) {
+        return /^[\d\s\-+()]{7,15}$/.test(phone);
+    }
+
     // ---- Enquiry Form handling ----
     const enquiryForm = document.getElementById('enquiryForm');
 
+    if (enquiryForm) {
     enquiryForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -205,6 +214,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Validate
         if (!data.name || !data.email || !data.phone) {
             showNotification('Please fill in all required fields.', 'error');
+            return;
+        }
+        if (!isValidEmail(data.email)) {
+            showNotification('Please enter a valid email address.', 'error');
+            return;
+        }
+        if (!isValidPhone(data.phone)) {
+            showNotification('Please enter a valid phone number.', 'error');
             return;
         }
 
@@ -227,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000);
         }, 1500);
     });
+    } // end if (enquiryForm)
 
     // ---- Brochure Form handling ----
     const brochureForm = document.getElementById('brochureForm');
@@ -241,6 +259,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!data.fullname || !data.email || !data.phone) {
                 showNotification('Please fill in all required fields.', 'error');
+                return;
+            }
+            if (!isValidEmail(data.email)) {
+                showNotification('Please enter a valid email address.', 'error');
+                return;
+            }
+            if (!isValidPhone(data.phone)) {
+                showNotification('Please enter a valid phone number.', 'error');
                 return;
             }
 
@@ -270,10 +296,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <span>${message}</span>
-            <button onclick="this.parentElement.remove()" style="background:none;border:none;color:inherit;cursor:pointer;font-size:1.2rem;margin-left:12px;">&times;</button>
-        `;
+
+        const span = document.createElement('span');
+        span.textContent = message;
+        notification.appendChild(span);
+
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '\u00D7';
+        closeBtn.setAttribute('style', 'background:none;border:none;color:inherit;cursor:pointer;font-size:1.2rem;margin-left:12px;');
+        closeBtn.addEventListener('click', () => notification.remove());
+        notification.appendChild(closeBtn);
 
         Object.assign(notification.style, {
             position: 'fixed',

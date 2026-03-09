@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConceptInfra Mashriq Heights | Landmark For Aligarh. Home For A Few.</title>
     <meta name="description" content="ConceptInfra Mashriq Heights - Premium residential project in the heart of Aligarh, Uttar Pradesh. Experience refined living with world-class amenities.">
+    <meta property="og:title" content="ConceptInfra Mashriq Heights | Landmark For Aligarh">
+    <meta property="og:description" content="Premium residential project in the heart of Aligarh. 4BHK suites with world-class amenities, modern architecture, and community living.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ConceptInfra Mashriq Heights">
+    <meta name="twitter:description" content="Premium residential project in Aligarh, UP. Experience refined living with world-class amenities.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -441,13 +448,16 @@
             <div class="brochure-form-wrap">
                 <form class="brochure-form" id="brochureForm">
                     <div class="form-group">
-                        <input type="text" name="fullname" placeholder="Full Name *" required>
+                        <label for="brochure-name" class="sr-only">Full Name</label>
+                        <input type="text" id="brochure-name" name="fullname" placeholder="Full Name *" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Email Address *" required>
+                        <label for="brochure-email" class="sr-only">Email Address</label>
+                        <input type="email" id="brochure-email" name="email" placeholder="Email Address *" required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" name="phone" placeholder="Phone Number *" required>
+                        <label for="brochure-phone" class="sr-only">Phone Number</label>
+                        <input type="tel" id="brochure-phone" name="phone" placeholder="Phone Number *" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-full">Download Brochure</button>
                 </form>
@@ -469,7 +479,9 @@
                         style="border:0;"
                         allowfullscreen=""
                         loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
+                        referrerpolicy="no-referrer-when-downgrade"
+                        sandbox="allow-scripts allow-same-origin"
+                        title="Mashriq Heights Location - Aligarh, Uttar Pradesh">
                     </iframe>
                 </div>
                 <div class="location-features">
@@ -541,23 +553,28 @@
                         <h3>Enquire Now</h3>
                         <p>Get exclusive details and pricing</p>
                         <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name *" required>
+                            <label for="enquiry-name" class="sr-only">Your Name</label>
+                            <input type="text" id="enquiry-name" name="name" placeholder="Your Name *" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" placeholder="Email Address *" required>
+                            <label for="enquiry-email" class="sr-only">Email Address</label>
+                            <input type="email" id="enquiry-email" name="email" placeholder="Email Address *" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" name="phone" placeholder="Phone Number *" required>
+                            <label for="enquiry-phone" class="sr-only">Phone Number</label>
+                            <input type="tel" id="enquiry-phone" name="phone" placeholder="Phone Number *" required>
                         </div>
                         <div class="form-group">
-                            <select name="interest" required>
-                                <option value="" disabled selected>I'm Interested In</option>
+                            <label for="enquiry-interest" class="sr-only">I'm Interested In</label>
+                            <select id="enquiry-interest" name="interest" required>
+                                <option value="" disabled selected hidden>I'm Interested In</option>
                                 <option value="4bhk">4 BHK Suite</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea name="message" placeholder="Your Message (Optional)" rows="3"></textarea>
+                            <label for="enquiry-message" class="sr-only">Your Message</label>
+                            <textarea id="enquiry-message" name="message" placeholder="Your Message (Optional)" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-full">Schedule a Visit</button>
                     </form>
@@ -616,9 +633,9 @@
             <div class="footer-bottom">
                 <p>Copyright &copy; 2026 <a href="#">ConceptInfra</a>. All Rights Reserved.</p>
                 <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
                     <span>|</span>
-                    <a href="#">Terms &amp; Conditions</a>
+                    <a href="terms.html">Terms &amp; Conditions</a>
                     <span>|</span>
                     <a href="#">Disclaimer</a>
                 </div>
