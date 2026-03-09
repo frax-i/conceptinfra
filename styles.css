@@ -48,6 +48,7 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-align: justify;
 }
 
 img {
@@ -312,46 +313,48 @@ ul {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background:
-        linear-gradient(135deg,
-            rgba(10, 10, 10, 0.3) 0%,
-            rgba(26, 26, 46, 0.5) 30%,
-            rgba(15, 52, 96, 0.4) 60%,
-            rgba(10, 10, 10, 0.6) 100%),
-        linear-gradient(180deg,
-            transparent 0%,
-            rgba(10, 10, 10, 0.4) 100%),
-        radial-gradient(ellipse at 70% 40%,
-            rgba(195, 155, 100, 0.15) 0%,
-            transparent 60%);
     background-color: #0d1b2a;
-    animation: heroBgShift 20s ease-in-out infinite alternate;
+    overflow: hidden;
 }
 
-@keyframes heroBgShift {
-    0% { background-color: #0d1b2a; }
-    33% { background-color: #1a1a2e; }
-    66% { background-color: #16213e; }
-    100% { background-color: #0f3460; }
+.hero-canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.hero-canvas.hero-vid-active {
+    opacity: 1;
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
     background:
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(195, 155, 100, 0.03) 2px,
-            rgba(195, 155, 100, 0.03) 4px
-        );
+        linear-gradient(180deg,
+            rgba(10, 10, 10, 0.5) 0%,
+            rgba(10, 10, 10, 0.3) 40%,
+            rgba(10, 10, 10, 0.5) 100%),
+        linear-gradient(135deg,
+            rgba(10, 10, 10, 0.4) 0%,
+            transparent 50%,
+            rgba(10, 10, 10, 0.4) 100%);
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
-    text-align: center;
+    text-align: center !important;
     padding: 0 24px;
 }
 
@@ -510,6 +513,7 @@ ul {
     color: var(--white);
     margin-bottom: 16px;
     line-height: 1.3;
+    text-align: center;
 }
 
 .section-title-large {
@@ -522,6 +526,7 @@ ul {
     background-clip: text;
     letter-spacing: 6px;
     margin-bottom: 40px;
+    text-align: center;
 }
 
 .section-subtitle {
@@ -529,22 +534,24 @@ ul {
     font-size: 1.2rem;
     font-style: italic;
     color: var(--gold-light);
-    margin-bottom: 40px;
+    margin-bottom: 24px;
+    text-align: center;
 }
 
 .section-desc {
     font-size: 1rem;
     color: var(--gray);
     max-width: 700px;
-    margin: 0 auto 50px;
+    margin: 0 auto 40px;
     line-height: 1.8;
+    text-align: center;
 }
 
 /* ============================================
    VIDEO SECTION
    ============================================ */
 .video-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: var(--dark);
     text-align: center;
 }
@@ -558,10 +565,22 @@ ul {
     border: 1px solid rgba(195,155,100,0.2);
 }
 
-.video-placeholder {
+.video-wrapper {
+    position: relative;
+}
+
+.walkthrough-video {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    object-fit: cover;
+    display: block;
+    background: #0d1b2a;
+}
+
+.video-play-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -569,10 +588,16 @@ ul {
     gap: 20px;
     cursor: pointer;
     transition: var(--transition);
+    z-index: 2;
 }
 
-.video-placeholder:hover {
-    background: linear-gradient(135deg, #1a1a2e 0%, #1a2a4e 50%, #0f4a70 100%);
+.video-play-overlay:hover {
+    background: rgba(10, 10, 10, 0.35);
+}
+
+.video-play-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .play-btn {
@@ -587,7 +612,7 @@ ul {
     height: 100%;
 }
 
-.video-placeholder:hover .play-btn {
+.video-play-overlay:hover .play-btn {
     transform: scale(1.1);
     color: var(--gold-light);
 }
@@ -603,7 +628,7 @@ ul {
    ABOUT US SECTION
    ============================================ */
 .about-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: var(--black);
     text-align: center;
     position: relative;
@@ -628,7 +653,7 @@ ul {
 
 .about-text {
     margin-bottom: 60px;
-    text-align: left;
+    text-align: justify;
 }
 
 .about-text p {
@@ -686,7 +711,7 @@ ul {
    FOUNDERS SECTION
    ============================================ */
 .founders-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: var(--dark);
     text-align: center;
 }
@@ -757,7 +782,7 @@ ul {
    CONSULTANTS SECTION
    ============================================ */
 .consultants-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: var(--black);
     text-align: center;
 }
@@ -766,7 +791,7 @@ ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .consultant-card {
@@ -840,7 +865,7 @@ ul {
    WHY CONCEPT INFRA SECTION
    ============================================ */
 .why-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: linear-gradient(180deg, var(--dark) 0%, var(--black) 100%);
     text-align: center;
 }
@@ -849,24 +874,49 @@ ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .why-card {
-    background: rgba(30, 30, 30, 0.6);
     border: 1px solid rgba(195,155,100,0.1);
     border-radius: 16px;
     padding: 45px 30px;
     text-align: center;
     transition: var(--transition);
-    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.why-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.8);
+    transition: var(--transition);
+    z-index: 0;
+}
+
+.why-card:hover::before {
+    background: rgba(10, 10, 10, 0.65);
+}
+
+.why-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 .why-card:hover {
     border-color: rgba(195,155,100,0.3);
     transform: translateY(-5px);
-    background: rgba(30, 30, 30, 0.9);
 }
+
+/* Why card background images */
+.why-card:nth-child(1) { background: url('images/why/expertise.jpg') center/cover; }
+.why-card:nth-child(2) { background: url('images/why/planning.jpg') center/cover; }
+.why-card:nth-child(3) { background: url('images/why/standards.jpg') center/cover; }
+.why-card:nth-child(4) { background: url('images/why/structure.jpg') center/cover; }
+.why-card:nth-child(5) { background: url('images/why/quality.jpg') center/cover; }
+.why-card:nth-child(6) { background: url('images/why/transparency.jpg') center/cover; }
 
 .why-icon {
     width: 48px;
@@ -898,7 +948,7 @@ ul {
    VISION & MISSION SECTION
    ============================================ */
 .vision-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: var(--dark);
     text-align: center;
 }
@@ -910,12 +960,33 @@ ul {
 }
 
 .vision-card {
-    background: var(--dark-gray);
     border: 1px solid rgba(195,155,100,0.15);
     border-radius: 16px;
-    padding: 50px 40px;
-    text-align: left;
+    padding: 36px 30px;
+    text-align: justify;
     transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.vision-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.82);
+    transition: var(--transition);
+    z-index: 0;
+}
+
+.vision-card:hover::before {
+    background: rgba(10, 10, 10, 0.68);
+}
+
+.vision-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 .vision-card:hover {
@@ -924,10 +995,14 @@ ul {
     box-shadow: var(--shadow-gold);
 }
 
+/* Vision card background images */
+.vision-card:nth-child(1) { background-image: url('images/vision/mission.jpg'); }
+.vision-card:nth-child(2) { background-image: url('images/vision/vision.jpg'); }
+
 .vision-icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 24px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 16px;
     color: var(--gold);
 }
 
@@ -938,20 +1013,21 @@ ul {
 
 .vision-card h3 {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--gold);
-    margin-bottom: 20px;
+    margin-bottom: 14px;
+    text-align: center;
 }
 
 .vision-card p {
-    font-size: 0.95rem;
-    color: var(--gray);
-    line-height: 1.8;
+    font-size: 0.85rem;
+    color: var(--light-gray);
+    line-height: 1.7;
 }
 
 .vision-extra {
-    margin-top: 16px;
+    margin-top: 12px;
     font-style: italic;
     color: var(--gold-light) !important;
 }
@@ -960,7 +1036,7 @@ ul {
    CONCEPT SECTION
    ============================================ */
 .concept-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: linear-gradient(180deg, var(--black) 0%, var(--dark) 100%);
     text-align: center;
 }
@@ -969,24 +1045,50 @@ ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .concept-card {
-    background: rgba(30, 30, 30, 0.6);
     border: 1px solid rgba(195,155,100,0.1);
     border-radius: 16px;
     padding: 45px 30px;
     text-align: center;
     transition: var(--transition);
-    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.concept-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.8);
+    transition: var(--transition);
+    z-index: 0;
+}
+
+.concept-card:hover::before {
+    background: rgba(10, 10, 10, 0.65);
+}
+
+.concept-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 .concept-card:hover {
     border-color: rgba(195,155,100,0.3);
     transform: translateY(-5px);
-    background: rgba(30, 30, 30, 0.9);
 }
+
+/* Concept card background images */
+.concept-card:nth-child(1) { background-image: url('images/concept/4bhk-suites.jpg'); }
+.concept-card:nth-child(2) { background-image: url('images/concept/community-hall.jpg'); }
+.concept-card:nth-child(3) { background-image: url('images/concept/amenities.jpg'); }
+.concept-card:nth-child(4) { background-image: url('images/concept/natural-elements.jpg'); }
+.concept-card:nth-child(5) { background-image: url('images/concept/recreation.jpg'); }
 
 .concept-icon {
     width: 48px;
@@ -1018,7 +1120,7 @@ ul {
    AMENITIES SECTION
    ============================================ */
 .amenities-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: var(--dark);
     text-align: center;
 }
@@ -1033,19 +1135,60 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     padding: 30px 20px;
-    background: rgba(255,255,255,0.03);
+    background-size: cover;
+    background-position: center;
     border: 1px solid rgba(195,155,100,0.1);
     border-radius: 12px;
     transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.amenity-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.82);
+    transition: var(--transition);
+    z-index: 0;
+}
+
+.amenity-item:hover::before {
+    background: rgba(10, 10, 10, 0.7);
+}
+
+.amenity-item > * {
+    position: relative;
+    z-index: 1;
 }
 
 .amenity-item:hover {
-    background: rgba(195,155,100,0.08);
     border-color: rgba(195,155,100,0.3);
     transform: translateY(-4px);
 }
+
+/* Amenity background images */
+.amenity-item:nth-child(1)  { background-image: url('images/amenities/gated-society.jpg'); }
+.amenity-item:nth-child(2)  { background-image: url('images/amenities/mosque.jpg'); }
+.amenity-item:nth-child(3)  { background-image: url('images/amenities/roads.jpg'); }
+.amenity-item:nth-child(4)  { background-image: url('images/amenities/jogging.jpg'); }
+.amenity-item:nth-child(5)  { background-image: url('images/amenities/landscape.jpg'); }
+.amenity-item:nth-child(6)  { background-image: url('images/amenities/kids-play.jpg'); }
+.amenity-item:nth-child(7)  { background-image: url('images/amenities/swimming.jpg'); }
+.amenity-item:nth-child(8)  { background-image: url('images/amenities/community-hall.jpg'); }
+.amenity-item:nth-child(9)  { background-image: url('images/amenities/gymnasium.jpg'); }
+.amenity-item:nth-child(10) { background-image: url('images/amenities/sky-lounge.jpg'); }
+.amenity-item:nth-child(11) { background-image: url('images/amenities/interior.jpg'); }
+.amenity-item:nth-child(12) { background-image: url('images/amenities/grocery.jpg'); }
+.amenity-item:nth-child(13) { background-image: url('images/amenities/garbage-chute.jpg'); }
+.amenity-item:nth-child(14) { background-image: url('images/amenities/elevator.jpg'); }
+.amenity-item:nth-child(15) { background-image: url('images/amenities/cctv.jpg'); }
+.amenity-item:nth-child(16) { background-image: url('images/amenities/rainwater.jpg'); }
+.amenity-item:nth-child(17) { background-image: url('images/amenities/transformer.jpg'); }
+.amenity-item:nth-child(18) { background-image: url('images/amenities/earthquake.jpg'); }
+.amenity-item:nth-child(19) { background-image: url('images/amenities/fire-resistant.jpg'); }
 
 .amenity-icon-wrap {
     width: 40px;
@@ -1070,7 +1213,7 @@ ul {
    BROCHURE SECTION
    ============================================ */
 .brochure-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: var(--black);
     text-align: center;
 }
@@ -1099,7 +1242,7 @@ ul {
    LOCATION SECTION
    ============================================ */
 .location-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: var(--dark);
     text-align: center;
 }
@@ -1108,7 +1251,7 @@ ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    margin-top: 50px;
+    margin-top: 30px;
     text-align: left;
 }
 
@@ -1178,7 +1321,7 @@ ul {
    ENQUIRY SECTION
    ============================================ */
 .enquiry-section {
-    padding: 120px 0;
+    padding: 80px 0;
     background: linear-gradient(135deg, var(--black) 0%, var(--dark) 50%, var(--black) 100%);
     position: relative;
 }
@@ -1567,6 +1710,10 @@ ul {
 
 /* Small Tablet / Large Phone */
 @media (max-width: 768px) {
+    .hero {
+        min-height: 100svh;
+    }
+
     .nav {
         position: fixed;
         top: 0;
@@ -1603,6 +1750,37 @@ ul {
         display: none;
     }
 
+    /* Reduce all section padding on mobile */
+    .video-section,
+    .about-section,
+    .founders-section,
+    .consultants-section,
+    .why-section,
+    .vision-section,
+    .concept-section,
+    .amenities-section,
+    .brochure-section,
+    .location-section,
+    .enquiry-section {
+        padding: 50px 0;
+    }
+
+    .section-title {
+        margin-bottom: 10px;
+    }
+
+    .section-title-large {
+        margin-bottom: 24px;
+    }
+
+    .section-desc {
+        margin-bottom: 30px;
+    }
+
+    .section-subtitle {
+        margin-bottom: 16px;
+    }
+
     .hero-cta {
         flex-direction: column;
         align-items: center;
@@ -1612,30 +1790,149 @@ ul {
         width: 260px;
     }
 
+    .about-text {
+        margin-bottom: 30px;
+    }
+
     .about-stats {
-        grid-template-columns: 1fr;
-        gap: 30px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding-top: 30px;
     }
 
     .founders-grid {
-        grid-template-columns: 1fr;
-        max-width: 350px;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 100%;
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    .founder-card {
+        padding: 24px 16px;
+    }
+
+    .founder-image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 16px;
+    }
+
+    .founder-placeholder {
+        width: 40px;
+        height: 40px;
     }
 
     .consultants-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .consultant-card {
+        padding: 24px 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        text-align: left;
+    }
+
+    .consultant-icon {
+        width: 44px;
+        height: 44px;
+        margin: 0;
+        flex-shrink: 0;
     }
 
     .why-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .why-card {
+        padding: 24px 16px;
+    }
+
+    .why-icon {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 12px;
+    }
+
+    .why-card h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+
+    .why-card p {
+        font-size: 0.8rem;
     }
 
     .concept-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .concept-card {
+        padding: 24px 16px;
+    }
+
+    .concept-icon {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 12px;
+    }
+
+    .concept-card h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+
+    .concept-card p {
+        font-size: 0.8rem;
     }
 
     .amenities-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .amenity-item {
+        padding: 20px 12px;
+        gap: 8px;
+    }
+
+    .amenity-icon-wrap {
+        width: 30px;
+        height: 30px;
+    }
+
+    .amenity-item span {
+        font-size: 0.75rem;
+    }
+
+    .vision-grid {
+        gap: 16px;
+    }
+
+    .vision-card {
+        padding: 24px 20px;
+    }
+
+    .vision-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    .vision-card p {
+        font-size: 0.85rem;
+    }
+
+    .location-features {
+        gap: 12px;
+    }
+
+    .location-feature {
+        padding: 14px;
+        gap: 12px;
     }
 
     .enquiry-grid {
@@ -1645,12 +1942,20 @@ ul {
 
     .footer-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 24px;
+    }
+
+    .footer {
+        padding: 50px 0 0;
+    }
+
+    .footer-grid {
+        padding-bottom: 30px;
     }
 
     .footer-bottom {
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
         text-align: center;
     }
 
@@ -1679,10 +1984,6 @@ ul {
         width: 30px;
     }
 
-    .amenities-grid {
-        grid-template-columns: 1fr;
-    }
-
     .enquiry-form-wrap {
         padding: 24px;
     }
@@ -1691,16 +1992,16 @@ ul {
         padding: 24px;
     }
 
-    .vision-card {
-        padding: 30px 24px;
-    }
-
     .section-title {
         font-size: 1.5rem;
     }
 
     .section-title-large {
         font-size: 2rem;
+    }
+
+    .about-section::before {
+        height: 40px;
     }
 }
 
@@ -1717,5 +2018,10 @@ ul {
 
     .hero-title-accent {
         font-size: 2.5rem;
+    }
+
+    .why-grid,
+    .concept-grid {
+        grid-template-columns: 1fr;
     }
 }

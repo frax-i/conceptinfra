@@ -51,6 +51,8 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-bg">
+            <video class="hero-canvas hero-vid-active" id="heroVidA" autoplay muted playsinline></video>
+            <video class="hero-canvas" id="heroVidB" muted playsinline></video>
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-content">
@@ -67,7 +69,7 @@
             </div>
             <div class="hero-cta">
                 <a href="#project" class="btn btn-primary">Discover More</a>
-                <a href="#walkthrough" class="btn btn-outline">Walkthrough Video</a>
+                <a href="#walkthrough" class="btn btn-outline">Walkthrough Tour</a>
             </div>
         </div>
         <div class="hero-scroll">
@@ -78,18 +80,21 @@
         </div>
     </section>
 
-    <!-- Walkthrough Video Section -->
+    <!-- Walkthrough Tour Section -->
     <section class="video-section" id="walkthrough">
         <div class="container">
             <div class="section-badge">Experience</div>
-            <h2 class="section-title">Walkthrough Video</h2>
+            <h2 class="section-title">Walkthrough Tour</h2>
             <p class="section-desc">Take a virtual tour of ConceptInfra's Mashriq Heights and experience the vision behind the project.</p>
             <div class="video-wrapper">
-                <div class="video-placeholder" id="videoPlaceholder">
+                <video class="walkthrough-video" id="walkthroughVideo" loop playsinline preload="metadata" poster="">
+                    <source src="videos/walkthrough.mp4" type="video/mp4">
+                </video>
+                <div class="video-play-overlay" id="videoPlayOverlay">
                     <div class="play-btn">
                         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5"/><polygon points="26,20 26,44 46,32" fill="currentColor"/></svg>
                     </div>
-                    <p>Click to play walkthrough video</p>
+                    <p>Click to play walkthrough tour</p>
                 </div>
             </div>
         </div>
@@ -134,7 +139,7 @@
                             <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="30" r="14" stroke="currentColor" stroke-width="1.5"/><path d="M12 70c0-16 12-26 28-26s28 10 28 26" stroke="currentColor" stroke-width="1.5"/></svg>
                         </div>
                     </div>
-                    <h3 class="founder-name">Dr. M Y Khan</h3>
+                    <h3 class="founder-name">Dr. M. Y. Khan</h3>
                     <p class="founder-role">Founder &amp; Director</p>
                 </div>
                 <div class="founder-card">
@@ -586,9 +591,9 @@
                 <div class="footer-links">
                     <h4>Our Projects</h4>
                     <ul>
-                        <li><a href="#">Residential Homes</a></li>
-                        <li><a href="#">Group Housing</a></li>
-                        <li><a href="#">Upcoming Projects</a></li>
+                        <li><a href="gallery.html?filter=residential">Residential Homes</a></li>
+                        <li><a href="gallery.html?filter=group">Group Housing</a></li>
+                        <li><a href="gallery.html?filter=upcoming">Upcoming Projects</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">

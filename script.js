@@ -305,15 +305,135 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     }
 
-    // ---- Parallax effect for hero ----
-    const heroBg = document.querySelector('.hero-bg');
+    // ---- Walkthrough Tour video player ----
+    const wtVideo = document.getElementById('walkthroughVideo');
+    const wtOverlay = document.getElementById('videoPlayOverlay');
 
-    window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        if (scrollY < window.innerHeight) {
-            heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+    if (wtVideo && wtOverlay) {
+        // Click overlay to play
+        wtOverlay.addEventListener('click', () => {
+            wtVideo.play().catch(() => {});
+            wtOverlay.classList.add('hidden');
+        });
+
+        // Click video to pause and show overlay again
+        wtVideo.addEventListener('click', () => {
+            wtVideo.pause();
+            wtOverlay.classList.remove('hidden');
+        });
+    }
+
+    // ---- Hero video reel: crossfade between real video clips ----
+    const vidA = document.getElementById('heroVidA');
+    const vidB = document.getElementById('heroVidB');
+
+    if (vidA && vidB) {
+        // Add/remove clips: download from https://mixkit.co/free-stock-video/
+        const clips = [
+            'videos/clip1.mp4', // Architecture team checking blueprints
+            'videos/clip2.mp4', // Architect choosing color from palette
+            'videos/clip3.mp4', // Architect working on a model
+            'videos/clip4.mp4', // Building under construction
+            'videos/clip5.mp4'  // Modern house on the beach
+        ];
+
+        const CLIP_DURATION = 6; // seconds per clip
+        let idx = 0;
+        let active = vidA;
+        let standby = vidB;
+        let scrollPaused = false;
+        let clipTimer = null;
+
+        // Load and play first clip
+        active.src = clips[0];
+        active.load();
+        active.play().catch(() => {});
+
+        // Preload next clip
+        standby.src = clips[1];
+        standby.load();
+
+        function startClipTimer() {
+            clearTimeout(clipTimer);
+            clipTimer = setTimeout(nextClip, CLIP_DURATION * 1000);
         }
-    }, { passive: true });
+
+        function nextClip() {
+            clearTimeout(clipTimer);
+            if (scrollPaused) return;
+            idx = (idx + 1) % clips.length;
+
+            // Ensure standby is at frame 0 before showing
+            standby.currentTime = 0;
+
+            function doSwap() {
+                // Play standby then crossfade
+                standby.play().catch(() => {});
+                standby.classList.add('hero-vid-active');
+                active.classList.remove('hero-vid-active');
+
+                // Swap roles
+                const tmp = active;
+                active = standby;
+                standby = tmp;
+
+                // Preload next into standby (hidden, reset to 0)
+                const nextIdx = (idx + 1) % clips.length;
+                standby.classList.remove('hero-vid-active');
+                standby.src = clips[nextIdx];
+                standby.load();
+                standby.addEventListener('loadeddata', function onLoad() {
+                    standby.currentTime = 0;
+                    standby.removeEventListener('loadeddata', onLoad);
+                });
+
+                startClipTimer();
+            }
+
+            // Wait until standby is seeked to 0 before revealing
+            if (standby.readyState >= 2) {
+                doSwap();
+            } else {
+                standby.addEventListener('seeked', function onSeeked() {
+                    standby.removeEventListener('seeked', onSeeked);
+                    doSwap();
+                });
+                // Fallback if seeked doesn't fire
+                setTimeout(doSwap, 200);
+            }
+        }
+
+        // Preload first standby properly
+        standby.addEventListener('loadeddata', function onFirstLoad() {
+            standby.currentTime = 0;
+            standby.removeEventListener('loadeddata', onFirstLoad);
+        });
+
+        // Start first timer
+        startClipTimer();
+
+        // Also switch if a short video ends before 6s
+        vidA.addEventListener('ended', nextClip);
+        vidB.addEventListener('ended', nextClip);
+
+        // Pause when scrolled past hero
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > window.innerHeight) {
+                if (!scrollPaused) {
+                    scrollPaused = true;
+                    clearTimeout(clipTimer);
+                    vidA.pause();
+                    vidB.pause();
+                }
+            } else {
+                if (scrollPaused) {
+                    scrollPaused = false;
+                    active.play().catch(() => {});
+                    startClipTimer();
+                }
+            }
+        }, { passive: true });
+    }
 
     // ---- Typed effect for hero tagline ----
     const taglineText = document.querySelector('.hero-tagline p');
